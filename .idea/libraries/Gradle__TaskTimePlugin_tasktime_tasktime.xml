@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: TaskTimePlugin.tasktime.tasktime">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tasktime/build/libs/tasktime.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

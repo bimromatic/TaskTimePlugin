@@ -1,0 +1,60 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+
+buildscript {
+    repositories {
+        //网上说最新版本的Android Studio （Canary 9） + Gradle 已经使用 google()来指代 google 仓库了，会自动解析到https://dl.google.com/dl/android/maven2/。也就是说创建好项目不需要翻|墙，也不需要修改什么就能更新依赖包了。：https://blog.csdn.net/luqingshuai_eloong/article/details/111354440
+        maven {url 'https://dl.google.com/dl/android/maven2/'}
+        maven {url 'https://www.jitpack.io'}
+
+        // maven插件目录
+//        maven{
+//            url uri('buildsrc')
+//        }
+
+        jcenter()
+    }
+    dependencies {
+        //Gradle插件版本号又对应有一个或一些
+        classpath "com.android.tools.build:gradle:4.1.1"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath 'com.novoda:bintray-release:0.9.2'
+
+        // 使用自定义插件
+       // classpath 'com.bimromatic.plugin:tasktime:1.0.6'
+    }
+}
+
+allprojects {
+    repositories {
+        //网上说最新版本的Android Studio （Canary 9） + Gradle 已经使用 google()来指代 google 仓库了，会自动解析到https://dl.google.com/dl/android/maven2/。也就是说创建好项目不需要翻|墙，也不需要修改什么就能更新依赖包了。：https://blog.csdn.net/luqingshuai_eloong/article/details/111354440
+        maven {url 'https://dl.google.com/dl/android/maven2/'}
+        maven {url 'https://www.jitpack.io'}
+        jcenter()
+    }
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
+
+    tasks.withType(JavaCompile) {    //设置全局编码
+        options.encoding = "UTF-8"
+    }
+    tasks.withType(Javadoc) {//设置文档编码
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
+
+
+
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,187 @@
+plugins {
+    id 'com.android.application'
+}
+
+//apply plugin: 'tasktime'
+
+
+
+
+//初始化（Initialization）
+//
+//Gradle为每个项目创建一个Project实例，在多项目构建中，Gradle会找出哪些项目依赖需要参与到构建中。
+//
+//配置（Configuration）
+//
+//执行所有项目的构建脚本，也就是执行每个项目的build.gradle文件。这里需要注意的是，task里的配置代码也会在这个阶段执行。
+//
+//执行（Execution）
+//
+//Gradle按照依赖顺序依次执行task。
+
+
+//task helloWorld {//括号内部的代码我们称之为配置代码
+//    println 'hello world'
+//}
+//
+//task helloWorld2 {//括号内部的代码我们称之为配置代码
+//    println 'hello world2'
+//}
+
+//doFirst：task执行时最先执行的操作
+//doLast：task执行时最后执行的操作
+
+//helloWorld.doFirst{
+//    println 'helloWorld,doFirst'
+//}
+
+//helloWorld.doLast{
+//    println 'helloWorld,doLast'
+//}
+//
+////需要注意的是 << 操作符，它只是一种 Gradle 里的语法糖而已，不要被这种写法迷惑了。
+////等同上面的写法
+//helloWorld <<{
+//    println 'helloWorld,doLast'
+//}
+//
+//helloWorld2.doFirst{
+//    println 'helloWorld2,doFirst'
+//}
+
+
+////创建Task的几种常见写法
+//task myTask1 {
+//    doLast {
+//        println "doLast in task1"
+//    }
+//}
+//
+//task myTask2 << {
+//    println "doLast in task2"
+//}
+//
+////采用 Project.task(String name) 方法来创建
+//project.task("myTask3").doLast {
+//    println "doLast in task3"
+//}
+//
+////采用 TaskContainer.create(String name) 方法来创建
+//project.tasks.create("myTask4").doLast {
+//    println "doLast in task4"
+//}
+//
+//project.tasks.create("myTask5") << {
+//    println "doLast in task5"
+//}
+
+
+//task myTask1 << {
+//    println "doLast in task1"
+//}
+//
+//task myTask2 << {
+//    println "doLast in task2"
+//}
+//
+//task myTask3 << {
+//    println "doLast in task3, this is old task"
+//}
+//
+//task myTask3(description: "这是task3的描述", group: "myTaskGroup", dependsOn: [myTask1, myTask2], overwrite: true) << {
+//    println "doLast in task3, this is new task"
+//}
+
+//task myTask1 {
+//    println "configure task1"
+//}
+//
+//myTask1.doLast {
+//    println "task1 doLast"
+//}
+
+//todo  << 在gradle 在5.1 之后废弃了
+//myTask1 <<{
+//    println "task1 doLast<<"
+//}
+
+//myTask1.leftShift {
+//    println "task1 doLast leftShift"
+//}
+
+task myTask1{
+    println 'this is myTask1'
+}
+
+myTask1.doLast{
+    println 'dolast is task1'
+}
+
+task myTask2{
+    println 'this is myTask2'
+}
+
+myTask2.doLast{
+    println 'dolast is task2'
+}
+
+task myTask3{
+    println 'this is myTask3'
+}
+
+myTask3.doLast{
+    println 'dolast is task3'
+}
+
+//task myTask3(description("这是task3的描述"),group("myTaskGroup"),dependsOn:[myTask1,myTask2],over){
+//    println "dolast in task3,this is new task"
+//}
+
+//task myTask2.doLast{
+//    println 'dolast is task2'
+//}
+//
+//task myTask3.doLast{
+//    println 'dplats is task3,this is old task'
+//}
+//
+//task myTask3(description("这是task3的描述"),group("myTaskGroup"),dependsOn:[myTask1,myTask2],overwrite).doLast{
+//    println "dolast in task3,this is new task"
+//}
+
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.bimromatic.tasktimeplugin"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

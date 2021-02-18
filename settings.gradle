@@ -1,0 +1,3 @@
+include ':tasktime'
+include ':app'
+rootProject.name = "TaskTimePlugin"

@@ -1,0 +1,2 @@
+apply plugin: 'com.novoda.bintray-release'
+//https://www.cnblogs.com/lixiangyang521/p/13451508.html

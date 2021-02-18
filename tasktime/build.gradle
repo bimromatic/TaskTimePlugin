@@ -1,0 +1,114 @@
+//plugins {
+//    id 'com.android.library'
+//}
+
+//“plugins {}”块导入的是Gradle官方插件仓库里的插件。
+// 如果使用“buildscript {}”块指定第三方库作为Gradle插件的话，
+// 指定插件就需要使用“apply plugin”了。
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven'
+apply plugin: 'groovy'
+
+
+dependencies {
+    // gradle sdk
+    implementation gradleApi()
+    // groovy sdk
+    implementation localGroovy()
+    // 添加依赖，于Android一样
+    implementation "com.android.tools.build:gradle:4.1.1"
+//    implementation "com.android.tools.build:gradle:3.4.0"
+//    implementation "com.android.tools.build:transform-api:1.5.0"
+//    implementation "javassist:javassist:3.12.1.GA"
+//    implementation "commons-io:commons-io:2.5"
+    //implementation 'org.javassist:javassist:3.23.1-GA'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            pom.groupId = 'com.liangchaojie'
+//            pom.artifactId = "library"
+//            pom.version = "1.0"
+//            pom.packaging = 'aar'
+//            repository(url: 'http://localhost:8081/repository/maven-releases/'){
+//                authentication(userName: "admin", password: "admin123")
+//            }
+//        }
+//    }
+//}
+
+// 打包到本地或者远程Maven库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = 'com.bimromatic.plugin'   // groupId
+            pom.artifactId = 'tasktime'  // artifactId
+            pom.version = '1.0.0' // 版本号
+            //pom.packaging = 'aar'
+            //提交到远程服务器：
+            // repository(url: "http://www.xxx.com/repos") {
+            //    authentication(userName: "admin", password: "admin")
+            // }
+            // 本地的Maven地址设置为
+            repository(url: uri('../buildsrc'))
+               // 添加 plugin maven 库地址
+//             repository(url: "http://localhost:8081/repository/maven-releases/") {
+//                authentication(userName: "admin", password: "HuWei@520520")
+//             }
+        }
+    }
+}
+
+
+publish {
+    userOrg = 'slience' //bintray账户下某个组织id
+    groupId = 'com.bimromatic.plugin' //maven仓库下库的包名，一般为模块包名
+    artifactId = 'tasktime' //项目名称
+    publishVersion = '1.0.0' //版本号
+    desc = 'A plug-in for counting the time consumption of Android task chain' //项目介绍，可以不写
+}
+
+
+
+
+//android {
+//    compileSdkVersion 30
+//    buildToolsVersion "30.0.3"
+//
+//    defaultConfig {
+//        minSdkVersion 16
+//        targetSdkVersion 30
+//        versionCode 1
+//        versionName "1.0"
+//
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        consumerProguardFiles "consumer-rules.pro"
+//    }
+//
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+//}
+//
+//dependencies {
+//
+//    implementation 'androidx.appcompat:appcompat:1.2.0'
+//    implementation 'com.google.android.material:material:1.2.1'
+//    testImplementation 'junit:junit:4.+'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+//}
